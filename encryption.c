@@ -51,7 +51,7 @@ FILE *pri = fopen("lockey.txt", "r");
         }
     }
     int i = 0,j = key[0];
-    while(i<5) {
+    while(i<yum) {
       lock[i++] = j%10;
       j/=10;
     }
