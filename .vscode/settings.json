@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "rsa.h": "c",
-        "string.h": "c",
-        "pem.h": "c",
-        "macros.h": "c",
-        "stdio.h": "c"
-    }
-}

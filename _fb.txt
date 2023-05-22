@@ -1,3 +1,0 @@
-Website: fb
-Username: vikas
-Encrypted Password: kmj
