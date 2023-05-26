@@ -218,6 +218,7 @@ void runnercode2(char *filename, char *key){
         int option;
         printf("Option:");
         scanf("%d",&option);
+        getchar();
         switch (option) {
             case 1:
                 retrievePassword(filename,key);
@@ -344,30 +345,40 @@ void signUp() {
         signUp();
     }
     else{
-    printf("Enter master password: ");
-    fgets(newUser.password, sizeof(newUser.password), stdin);
-    newUser.password[strcspn(newUser.password, "\n")] = '\0'; // remove trailing newline
-    // adding special key
-    printf("Enter your special key for retreiving passwords: ");
-    fgets(newUser.spckey, sizeof(newUser.spckey), stdin);
-    newUser.spckey[strcspn(newUser.spckey, "\n")] = '\0'; // remove trailing newline
-    // Create a new file for the user
-    char filename[MAX_USERNAME_LENGTH + 4]; // 4 is for ".txt" and null terminator
-    snprintf(filename, sizeof(filename), "%s.txt", newUser.username);
-     FILE* file = fopen(filename, "w");
-    if (file == NULL) {
-        printf("Error creating file!\n");
-        return;
-    }
-    encrypt(newUser.username);
-    encrypt(newUser.password);
-    encrypt(newUser.spckey);
-    fprintf(file, "%s\n", newUser.username);
-    fprintf(file, "%s\n", newUser.password);
-    fprintf(file, "%s\n", newUser.spckey);
-    fclose(file);
-    printf("Sign up successful!\n", filename);
-    runnercode();
+        printf("Enter master password: ");
+        fgets(newUser.password, sizeof(newUser.password), stdin);
+        newUser.password[strcspn(newUser.password, "\n")] = '\0'; // remove trailing newline
+        printf("Strength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Try Again\n", strength(newUser.password));
+        int n;
+        printf("Enter:");
+        scanf("%d",&n);
+        getchar();
+        if (n==1) {
+            // adding special key
+            printf("Enter your special key for retreiving passwords: ");
+            fgets(newUser.spckey, sizeof(newUser.spckey), stdin);
+            newUser.spckey[strcspn(newUser.spckey, "\n")] = '\0'; // remove trailing newline
+            // Create a new file for the user
+            char filename[MAX_USERNAME_LENGTH + 4]; // 4 is for ".txt" and null terminator
+            snprintf(filename, sizeof(filename), "%s.txt", newUser.username);
+            FILE* file = fopen(filename, "w");
+            if (file == NULL) {
+                printf("Error creating file!\n");
+                return;
+            }
+            encrypt(newUser.username);
+            encrypt(newUser.password);
+            encrypt(newUser.spckey);
+            fprintf(file, "%s\n", newUser.username);
+            fprintf(file, "%s\n", newUser.password);
+            fprintf(file, "%s\n", newUser.spckey);
+            fclose(file);
+            printf("Sign up successful!\n", filename);
+            runnercode();
+        }
+        else{
+         signUp();
+        }
     }
 }
 

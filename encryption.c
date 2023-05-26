@@ -27,6 +27,28 @@ void decrypt(char encrypted[],int lock[],int key[],int y) {
         }
     }
 }
+char *getfile(int ln, char *filename, char *result) {
+    char line[100];
+    int count = 1;
+    char lame[20];
+    strcpy(lame,filename);
+    char*file = strcat(lame,".txt");
+    FILE *fp;
+    fp = fopen(file, "r");
+    if (fp == NULL) {
+        printf("Error opening file\n");
+        return NULL;
+    }
+    while (fgets(line, sizeof(line), fp)) {
+        if (count == ln) {
+            strcpy(result, line);
+            break;
+        }
+        count++;
+    }
+    fclose(fp);
+    return result;
+}
 
 void main() {
     int yum;
@@ -65,10 +87,10 @@ void main() {
     printf("Give:");
     
     fgets(password,100,stdin);
+    encrypt(password,lock,key,yum);
+    puts(password);
     
     printf("\n");
-    
-    encrypt(password,lock,key,yum);
     
     FILE *fp;
     
@@ -77,25 +99,23 @@ void main() {
     fprintf(fp,"%s",password);
     
     fclose(fp);
-    
-    char encrypted[100];
-    
-    fp=fopen("password.txt","r");
-    
-    fgets(encrypted,100,fp);
-    
-    fclose(fp);
-    char encryp[100];
+
+    char encryp1[100];
     FILE *kll = fopen("password.txt", "r");
     if (loki == NULL) {
         printf("File not found.\n");
         exit(1);
     }
     else {
-        fgets(encryp,100,fp);
+        fgets(encryp1,100,fp);
         }
     fclose(fp);    
-    puts(encryp);
-    decrypt(encryp,lock,key,yum);
-    puts(encryp);
+    puts(encryp1);
+    decrypt(encryp1,lock,key,yum);
+    puts(encryp1);
+    char result[100];
+    char filename[] = "ram07";
+    getfile(1,filename,result);
+    decrypt(result,lock,key,yum);
+    puts(result);
 }
