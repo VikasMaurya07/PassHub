@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 #define MAX_USERNAME_LENGTH 20
 #define MAX_PASSWORD_LENGTH 20
 void signUp();
@@ -11,6 +12,7 @@ void addPassword();
 void retrievePassword();
 void changespecky(char *filename, char*newkey);
 void delete(char *filename);
+void runnercode3(char *filename, char *key);
 
 void byn(char *str, int n) {
     int len = strlen(str);
@@ -39,6 +41,7 @@ char *getfile(int ln, char *filename, char *result) {
     byn(result,1);
     return result;
 }
+
 void runnercode() {
     int option;
  printf("\n1. Sign Up\n");
@@ -64,6 +67,7 @@ void runnercode() {
                 runnercode();
         }
 } 
+
 void encrypt(char password[]) {
      int yum;
 FILE *loki = fopen("loki.txt", "r");
@@ -148,6 +152,7 @@ FILE *pri = fopen("lockey.txt", "r");
     }
   }
 }
+
 int strength(char p[])
 {
    int a=0,b=0,c=0,d=0;
@@ -236,7 +241,59 @@ void runnercode2(char *filename, char *key){
                 printf("Invalid option. Please try again.\n");
                 runnercode2(filename,key);
         }
-}    
+}   
+void runnercode3(char *filename, char* key) { 
+    int option;
+    printf("\nSelect an option:\n");
+    printf("1. Retrieve Password\n");
+    printf("2. Add Password\n");
+    printf("3. Change Password\n");
+    printf("4. Change speckey\n");
+    printf("5. Delete Entry\n");
+    printf("6. Back\n");
+    printf("Option: ");
+    scanf("%d", &option);
+    getchar(); // consume newline character
+    switch (option) {
+        case 1:
+            retrievePassword(filename,key);
+            break;
+        case 2:
+            addPassword(filename,key);
+            break;
+        case 3:
+            changepass(filename);
+            break;
+        case 4:
+            changespecky(filename,key);
+            break;
+        case 5:
+            delete(filename);
+            break;
+        case 6:
+            printf("Going back...\n");
+            runnercode();
+            break;
+        default:
+            printf("Invalid option. Please try again.\n");
+            runnercode3(filename,key);
+    }
+}
+
+// Function for generating a random password
+void getPass(char *password) {
+    int size;
+    printf("Enter size of the password:");
+    scanf("%d",&size);
+    getchar();
+    srand(time(NULL));
+    //characters to choose from for the password
+    char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$^&*()+'-,.";
+    for (int i = 0; i < size; i++) {
+        int index = rand() % (sizeof(charset) - 1);
+        *(password + i) = charset[index];
+    }
+}
 
 struct User {
     char username[MAX_USERNAME_LENGTH];
@@ -252,7 +309,7 @@ void addPassword(char *filename, char*key) {
     printf("=== Add Password ===\n");
 
     // Get website name
-    printf("Enter website name: ");
+    printf("Enter website name (use only lowercase): ");
     fgets(website, sizeof(website), stdin);
     website[strcspn(website, "\n")] = '\0'; // remove trailing newline
 
@@ -266,9 +323,10 @@ void addPassword(char *filename, char*key) {
     fgets(password, sizeof(password), stdin);
     password[strcspn(password, "\n")] = '\0'; // remove trailing newline
     int n;
-    printf("Strength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. No\n", strength(password));
+    printf("Strength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Generate for me\n3. Try again\n4. Back\n", strength(password));
     printf("Enter:");
     scanf("%d",&n);
+    getchar(); 
     if (n==1) {
     // Encrypt the password
     encrypt(password);
@@ -286,6 +344,40 @@ void addPassword(char *filename, char*key) {
     fclose(file);
     printf("Password added successfully!\n");
     runnercode2(filename,key);
+    }
+    else if (n==2) {
+        strcpy(password,"");
+        getPass(password);
+        printf("Your Password: ");
+        puts(password);
+        printf("\n1. Save\n2. Try Again\n");
+        int m;
+        printf("Enter:");
+        scanf("%d",&m);
+        getchar();
+        if(m==1) {
+            // Encrypt the password
+            encrypt(password);
+            encrypt(username);
+            FILE* file = fopen(filename, "a");
+            if (file == NULL) {
+            printf("Error opening file!\n");
+            return;
+            }
+            // Write website name, username, and encrypted password to the file
+            fprintf(file, "W:%s\n", website);
+            fprintf(file, "%s\n", username);
+            fprintf(file, "%s\n", password);
+            fclose(file);
+            printf("Password added successfully!\n");
+            runnercode2(filename,key);
+        }
+        else {
+            addPassword(filename,key);
+        }
+    }
+    else if (n==3) {
+        addPassword(filename,key);
     }
     else {
         runnercode2(filename,key);
@@ -421,41 +513,7 @@ void signIn() {
 
     if (match) {
         printf("Sign in successful!\n");
-        int option;
-            printf("\nSelect an option:\n");
-            printf("1. Retrieve Password\n");
-            printf("2. Add Password\n");
-            printf("3. Change Password\n");
-            printf("4. Change speckey\n");
-            printf("5. Delete Entry\n");
-            printf("6. Back\n");
-            printf("Option: ");
-            scanf("%d", &option);
-            getchar(); // consume newline character
-            switch (option) {
-                case 1:
-                    retrievePassword(filename,masterUser.spckey);
-                    break;
-                case 2:
-                    addPassword(filename,masterUser.spckey);
-                    break;
-                case 3:
-                    changepass(filename);
-                    break;
-                case 4:
-                    changespecky(filename,masterUser.spckey);
-                    break;
-                case 5:
-                    delete(filename);
-                    break;
-                case 6:
-                    printf("Going back...\n");
-                    runnercode();
-                    break;
-                default:
-                    printf("Invalid option. Please try again.\n");
-                    signIn();
-            }
+        runnercode3(filename,masterUser.spckey);
     }
     else {
         printf("Wrong master username or password. Please try again.\n");
