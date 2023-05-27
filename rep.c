@@ -24,8 +24,8 @@ void replace(){
     scanf("%d",&ln);
     int k=0;
     while(1){
-        if(k+1==ln){k++;
-             continue;
+        if(k+1==ln){
+            strcpy(replace[k],"numnumnumnum");
         }
         fprintf(mou,"%s\n",replace[k]);
          if(k==zeo){

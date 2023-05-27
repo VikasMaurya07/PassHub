@@ -3,16 +3,23 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <windows.h>
 #define MAX_USERNAME_LENGTH 20
 #define MAX_PASSWORD_LENGTH 20
 void signUp();
-void changepass(char *filename);
+void changepass(char *filename,char* key);
 void signIn();
 void addPassword();
 void retrievePassword();
-void changespecky(char *filename, char*newkey);
-void delete(char *filename);
 void runnercode3(char *filename, char *key);
+void changespecky(char *filename, char*key);
+void delete(char *filename,char* key);
+
+void tpass() {
+    for(int i = 0; i<1999999999; i++) {
+        printf("");
+    }
+}
 
 void byn(char *str, int n) {
     int len = strlen(str);
@@ -43,7 +50,9 @@ char *getfile(int ln, char *filename, char *result) {
 }
 
 void runnercode() {
+    system("cls");
     int option;
+    printf("\nSelect an option:\n");
  printf("\n1. Sign Up\n");
         printf("2. Sign In\n");
         printf("3. Exit\n");
@@ -170,19 +179,9 @@ int strength(char p[])
       
    return a+b+c+d+1;
 }
-void changespecky(char *filename, char*newkey) {
 
-}
-
-void delete(char *filename) {
-
-}
-
-void changepass(char *filename) {
-
-}
-
-int search(char *filename, char *website) {
+int search(char *filename, char *website,char *key) {
+    system("cls");
     int count = 1;
     int flag = 0;
     char line[20];
@@ -198,10 +197,9 @@ int search(char *filename, char *website) {
         byn(line,1);
         if (strcmp(line, web) == 0) { 
             flag += 1;
-            int i = count;
             printf("Found the website. (nvalue = %d)\n",count);
             char username[20];
-            decrypt(getfile(i+1,filename,username));
+            decrypt(getfile(count+1,filename,username));
             printf("Username:");
             puts(username);
             printf("\n");
@@ -210,20 +208,188 @@ int search(char *filename, char *website) {
     }
     fclose(fp);
     if (flag == 0) {
-        printf("Not Found.");
+        printf("Not Found.\n");
         return 0;
+        tpass();
+        runnercode3(filename,key);
     }
     else{
         return 1;
     }
 }
 
+void delete(char *filename,char* key) {
+    char replace[20][20];
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Error opening file\n");
+        return;
+    }
+    int read = 0;
+    int lnn = 0;
+    while (1)
+    {
+        read = fscanf(fp,"%s", replace[lnn]);
+        if (read == EOF)
+        {
+            break;
+        }
+        lnn++;
+    }
+    fclose(fp);
+    char del[20];
+    printf("Enter website name:");
+    fgets(del,20,stdin);
+    del[strcspn(del,"\n")]  = '\0';
+    int d = search(filename,del,key);
+    if (d==0) {
+        tpass();
+        runnercode3(filename,key);
+    }
+    else {
+    FILE*fpp = fopen(filename,"w");
+    int l;
+    printf("Enter nvalue:");
+    scanf("%d",&l);
+    getchar();
+    int k=0;
+    while(1){
+        if(k+1==l){
+            strcpy(replace[k],"numnumnumnum");
+        }
+        fprintf(fpp,"%s\n",replace[k]);
+         if(k==lnn-1){
+            break;
+        }
+        k++;
+    }
+    fclose(fpp);
+    printf("Successfully deleted.");
+    tpass();
+    runnercode3(filename,key);
+}
+return;
+}
+
+void changepass(char *filename, char*key) {
+    char replace[20][20];
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Error opening file\n");
+        return;
+    }
+    int read = 0;
+    int lnn = 0;
+    while (1)
+    {
+        read = fscanf(fp,"%s", replace[lnn]);
+        if (read == EOF)
+        {
+            break;
+        }
+        lnn++;
+    }
+    fclose(fp);
+    printf("Enter old password:");
+    char op[20];
+    fgets(op,20,stdin);
+    char pss[20];
+    strcpy(pss,replace[1]);
+    decrypt(pss);
+    op[strcspn(op,"\n")]  = '\0';
+    if (strcmp(op, pss)==0) {
+        char np[20];
+    printf("Enter new password :");
+    fgets(np,20,stdin);
+    np[strcspn(np,"\n")]  = '\0';
+    encrypt(np);
+    FILE*fpp = fopen(filename,"w");
+    int k=0;
+    while(1){
+        if(k+1==2){
+            strcpy(replace[k],np);
+        }
+        fprintf(fpp,"%s\n",replace[k]);
+         if(k==lnn-1){
+            break;
+        }
+        k++;
+    }
+    fclose(fpp);
+    printf("Password successfully updated. Log in again.");
+    tpass();
+    runnercode();
+}
+else {
+    printf("Wrong Password. Please try again.");
+    tpass();
+    runnercode3(filename,key);
+}
+return;
+}
+
+void changespecky(char *filename, char* key) {
+    char replace[20][20];
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Error opening file\n");
+        return;
+    }
+    int read = 0;
+    int lnn = 0;
+    while (1)
+    {
+        read = fscanf(fp,"%s", replace[lnn]);
+        if (read == EOF)
+        {
+            break;
+        }
+        lnn++;
+    }
+    fclose(fp);
+    printf("Enter old special key:");
+    char okey[20];
+    fgets(okey,20,stdin);
+    okey[strcspn(okey,"\n")]  = '\0';
+    if (strcmp(okey, key)==0) {
+        char newkey[20];
+    printf("Enter new special key for retreiving passwords:");
+    fgets(newkey,20,stdin);
+    newkey[strcspn(newkey,"\n")]  = '\0';
+    encrypt(newkey);
+    FILE*fpp = fopen(filename,"w");
+    int k=0;
+    while(1){
+        if(k+1==3){
+            strcpy(replace[k],newkey);
+        }
+        fprintf(fpp,"%s\n",replace[k]);
+         if(k==lnn-1){
+            break;
+        }
+        k++;
+    }
+    fclose(fpp);
+    printf("special key successfully updated. Log in again.");
+    tpass();
+    runnercode();
+}
+else {
+    printf("Wrong Key. Please try again.");
+    tpass();
+    runnercode3(filename,key);
+}
+return;
+}
+
 void runnercode2(char *filename, char *key){
-    printf("\n1. Retrieve password\n2. Add Password\n3. Sign Out\n4. Exit\n");
+    system("cls");
+    printf("\n1. Retrieve password\n2. Add Password\n3. Main Menu\n4. Sign Out\n5. Exit\n");
         int option;
         printf("Option:");
         scanf("%d",&option);
         getchar();
+        system("cls");
         switch (option) {
             case 1:
                 retrievePassword(filename,key);
@@ -232,9 +398,12 @@ void runnercode2(char *filename, char *key){
                 addPassword(filename,key);
                 break;
             case 3:
-                signIn();
+                runnercode3(filename,key);
                 break;
             case 4:
+                signIn();
+                break;
+            case 5:
                 runnercode();
                 break;
             default:
@@ -243,6 +412,7 @@ void runnercode2(char *filename, char *key){
         }
 }   
 void runnercode3(char *filename, char* key) { 
+    system("cls");
     int option;
     printf("\nSelect an option:\n");
     printf("1. Retrieve Password\n");
@@ -254,6 +424,7 @@ void runnercode3(char *filename, char* key) {
     printf("Option: ");
     scanf("%d", &option);
     getchar(); // consume newline character
+    system("cls");
     switch (option) {
         case 1:
             retrievePassword(filename,key);
@@ -262,13 +433,13 @@ void runnercode3(char *filename, char* key) {
             addPassword(filename,key);
             break;
         case 3:
-            changepass(filename);
+            changepass(filename,key);
             break;
         case 4:
             changespecky(filename,key);
             break;
         case 5:
-            delete(filename);
+            delete(filename,key);
             break;
         case 6:
             printf("Going back...\n");
@@ -305,6 +476,7 @@ void addPassword(char *filename, char*key) {
     char website[MAX_USERNAME_LENGTH];
     char username[MAX_USERNAME_LENGTH];
     char password[MAX_PASSWORD_LENGTH];
+    system("cls");
 
     printf("=== Add Password ===\n");
 
@@ -386,6 +558,7 @@ void addPassword(char *filename, char*key) {
 void retrievePassword(char *filename,char*key) {
     char website[MAX_USERNAME_LENGTH];
     char specialKey[MAX_PASSWORD_LENGTH];
+    system("cls");
 
     printf("\n=== Retrieve Password ===\n");
 
@@ -404,11 +577,8 @@ void retrievePassword(char *filename,char*key) {
     fgets(website, sizeof(website), stdin);
     website[strcspn(website, "\n")] = '\0'; // remove trailing newline
     }
-    int d = search(filename,website);
-    if(d==0) {
-        runnercode2(filename,key);
-    }
-    else if (d == 1){
+    int d = search(filename,website,key);
+    if (d == 1){
         printf("Enter the indicated nvalue:");
         int m;
         scanf("%d",&m);
@@ -417,11 +587,17 @@ void retrievePassword(char *filename,char*key) {
         decrypt(pass);
         printf("Password: ");
         puts(pass);
-        runnercode2(filename,key);
+        int x;
+        printf("\nPress 1 to leave this page\n");
+        scanf("%d",&x);
+        if (x==1) {
+            runnercode2(filename,key);
+        }
     }
 }
 void signUp() {
     struct User newUser;
+    system("cls");
     printf("\n=== Sign Up ===\n");
     printf("Enter master username: ");
     fgets(newUser.username, sizeof(newUser.username), stdin);
@@ -477,6 +653,7 @@ void signUp() {
 void signIn() {
     struct User inputUser;
     int match = 0;
+    system("cls");
 
     printf("\n=== Sign In ===\n");
 
@@ -493,6 +670,7 @@ void signIn() {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         printf("User does not exist.\n");
+        tpass();
         runnercode();
         return;
     }
@@ -513,16 +691,37 @@ void signIn() {
 
     if (match) {
         printf("Sign in successful!\n");
+        tpass();
         runnercode3(filename,masterUser.spckey);
     }
     else {
         printf("Wrong master username or password. Please try again.\n");
+        tpass();
+        runnercode();
     }
 }
 
 int main() {
-    printf("\n***Welcome to Pass Hub***\n");
-     printf("\nSelect an option:\n");
+    printf("\n\n\n\n\n\t\t\t\t\t\t*** Welcome to Pass Hub ***\n");
+    printf("\n\n\n\n");
+    printf("\n\t\t\t\t\t\t     **");
+    Sleep(400);
+    printf(")(");
+    Sleep(400);
+    printf("()");
+    Sleep(400);
+    printf(")(");
+    Sleep(400);
+    printf("()");
+    Sleep(400);
+    printf(")(");
+    Sleep(400);
+    printf("()");
+    Sleep(400);
+    printf(")(");
+    Sleep(400);
+    printf("**");
+    tpass();
     runnercode();
     return 0;
 }
