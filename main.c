@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <windows.h>
+#include <conio.h>
 #define MAX_USERNAME_LENGTH 20
 #define MAX_PASSWORD_LENGTH 20
 void signUp();
@@ -14,6 +15,17 @@ void retrievePassword();
 void runnercode3(char *filename, char *key);
 void changespecky(char *filename, char*key);
 void delete(char *filename,char* key);
+void hpass(char* password) {
+    char c; 
+    int i = 0;
+    while ((c = getch ()) != '\n' && c != '\r') 
+    {
+        password [i] = c;
+        printf ("*");
+        i++;
+    }
+    password [i] = '\0';
+}
 
 void tpass() {
     for(int i = 0; i<1999999999; i++) {
@@ -292,16 +304,22 @@ void changepass(char *filename, char*key) {
     fclose(fp);
     printf("Enter old password:");
     char op[20];
-    fgets(op,20,stdin);
+    hpass(op);
     char pss[20];
     strcpy(pss,replace[1]);
     decrypt(pss);
     op[strcspn(op,"\n")]  = '\0';
     if (strcmp(op, pss)==0) {
         char np[20];
-    printf("Enter new password :");
-    fgets(np,20,stdin);
+    printf("\nEnter new password:");
+    hpass(np);
     np[strcspn(np,"\n")]  = '\0';
+    printf("\n\nStrength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Try Again\n", strength(np));
+        int n;
+        printf("Enter:");
+        scanf("%d",&n);
+        getchar();
+    if(n==1) {
     encrypt(np);
     FILE*fpp = fopen(filename,"w");
     int k=0;
@@ -319,6 +337,10 @@ void changepass(char *filename, char*key) {
     printf("Password successfully updated. Log in again.");
     tpass();
     runnercode();
+    }
+    else {
+        changepass(filename,key);
+    }
 }
 else {
     printf("Wrong Password. Please try again.");
@@ -492,11 +514,11 @@ void addPassword(char *filename, char*key) {
 
     // Get password
     printf("Enter password: ");
-    fgets(password, sizeof(password), stdin);
+    hpass(password);
     password[strcspn(password, "\n")] = '\0'; // remove trailing newline
     int n;
-    printf("Strength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Generate for me\n3. Try again\n4. Back\n", strength(password));
-    printf("Enter:");
+    printf("\nStrength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Generate for me\n3. Try again\n4. Back\n", strength(password));
+    printf("\nEnter:");
     scanf("%d",&n);
     getchar(); 
     if (n==1) {
@@ -610,19 +632,22 @@ void signUp() {
     char *file = strcat(lame,".txt");
     if (access(file, F_OK) != -1) {
         printf("Username Exist. Choose another\n");
+        tpass();
+        tpass();
         signUp();
     }
     else{
         printf("Enter master password: ");
-        fgets(newUser.password, sizeof(newUser.password), stdin);
+        hpass(newUser.password);
         newUser.password[strcspn(newUser.password, "\n")] = '\0'; // remove trailing newline
-        printf("Strength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Try Again\n", strength(newUser.password));
+        printf("\n\nStrength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Try Again\n", strength(newUser.password));
         int n;
         printf("Enter:");
         scanf("%d",&n);
         getchar();
         if (n==1) {
             // adding special key
+            system("cls");
             printf("Enter your special key for retreiving passwords: ");
             fgets(newUser.spckey, sizeof(newUser.spckey), stdin);
             newUser.spckey[strcspn(newUser.spckey, "\n")] = '\0'; // remove trailing newline
@@ -662,7 +687,7 @@ void signIn() {
     inputUser.username[strcspn(inputUser.username, "\n")] = '\0'; // remove trailing newline
 
     printf("Enter master password: ");
-    fgets(inputUser.password, sizeof(inputUser.password), stdin);
+    hpass(inputUser.password);
     inputUser.password[strcspn(inputUser.password, "\n")] = '\0'; // remove trailing newline
     char filename[MAX_USERNAME_LENGTH + 4]; // 4 is for ".txt" and null terminator
     // Open the user's file for verification
@@ -690,7 +715,7 @@ void signIn() {
     }
 
     if (match) {
-        printf("Sign in successful!\n");
+        printf("\nSign in successful!\n");
         tpass();
         runnercode3(filename,masterUser.spckey);
     }
