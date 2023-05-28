@@ -5,8 +5,10 @@
 #include <time.h>
 #include <windows.h>
 #include <conio.h>
+
 #define MAX_USERNAME_LENGTH 50
 #define MAX_PASSWORD_LENGTH 50
+
 void signUp();
 void changepass(char *filename,char* key);
 void signIn();

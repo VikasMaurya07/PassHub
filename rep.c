@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 void replace(){
-    char replace[20][20];
+    char replace[50][50];
     FILE *ou = fopen("ram07.txt", "r");
     int kk = 0;
     int zeo = 0;

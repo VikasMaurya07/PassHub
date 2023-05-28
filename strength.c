@@ -19,7 +19,7 @@ int strength(const char *p)
 }
 int main()
 {
-    char p[20];
+    char p[50];
     printf("enter characters in password: ");
     scanf("%s",p);
    printf("strength of password is %d/5",strength(p));
