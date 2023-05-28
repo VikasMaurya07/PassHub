@@ -274,7 +274,7 @@ void delete(char *filename,char* key) {
     else {
     FILE*fpp = fopen(filename,"w");
     int l;
-    printf("Enter nvalue:");
+    printf("Enter nvalue (else enter some large value >200 to terminate):");
     scanf("%d",&l);
     getchar();
     int k=0;
@@ -289,9 +289,14 @@ void delete(char *filename,char* key) {
         k++;
     }
     fclose(fpp);
+    if(l<200) {
     printf("Successfully deleted.");
     tpass();
     runnercode3(filename,key);
+    }
+    else {
+        runnercode3(filename,key);
+    }
 }
 return;
 }
