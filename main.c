@@ -616,6 +616,11 @@ void retrievePassword(char *filename,char*key) {
             runnercode2(filename,key);
         }
     }
+    else {
+        printf("Try Again.");
+        tpass();
+        runnercode2(filename,key);
+    }
 }
 void signUp() {
     struct User newUser;
