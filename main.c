@@ -20,12 +20,25 @@ void hpass(char* password) {
     int i = 0;
     while ((c = getch ()) != '\n' && c != '\r') 
     {
-        password [i] = c;
-        printf ("*");
-        i++;
+        if (c == '\b') 
+        {
+            if (i > 0) 
+            {
+                password[i-1] = '\0';
+                printf ("\b \b"); 
+                i--;
+            }
+        }
+        else // if not backspace
+        {
+            password[i] = c;
+            printf ("*");
+            i++;
+        }
     }
-    password [i] = '\0';
+    password[i] = '\0';
 }
+
 
 void tpass() {
     for(int i = 0; i<1999999999; i++) {
@@ -314,6 +327,9 @@ void changepass(char *filename, char*key) {
     printf("\nEnter new password:");
     hpass(np);
     np[strcspn(np,"\n")]  = '\0';
+    if(strcmp(np,"")==0) {
+        runnercode3(filename,key);
+    }
     printf("\n\nStrength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Try Again\n", strength(np));
         int n;
         printf("Enter:");
@@ -378,6 +394,9 @@ void changespecky(char *filename, char* key) {
     printf("Enter new special key for retreiving passwords:");
     fgets(newkey,20,stdin);
     newkey[strcspn(newkey,"\n")]  = '\0';
+    if(strcmp(newkey,"")==0) {
+        runnercode3(filename,key);
+    }
     encrypt(newkey);
     FILE*fpp = fopen(filename,"w");
     int k=0;
@@ -599,6 +618,9 @@ void retrievePassword(char *filename,char*key) {
     fgets(website, sizeof(website), stdin);
     website[strcspn(website, "\n")] = '\0'; // remove trailing newline
     }
+    if(strcmp(website,"")==0) {
+        runnercode2(filename,key);
+    }
     int d = search(filename,website,key);
     if (d == 1){
         printf("Enter the indicated nvalue:");
@@ -699,7 +721,7 @@ void signIn() {
     snprintf(filename, sizeof(filename), "%s.txt", inputUser.username);
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        printf("User does not exist.\n");
+        printf("\nUser does not exist.\n");
         tpass();
         runnercode();
         return;
@@ -725,7 +747,7 @@ void signIn() {
         runnercode3(filename,masterUser.spckey);
     }
     else {
-        printf("Wrong master username or password. Please try again.\n");
+        printf("\nWrong master username or password. Please try again.\n");
         tpass();
         runnercode();
     }
