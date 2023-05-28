@@ -5,8 +5,8 @@
 #include <time.h>
 #include <windows.h>
 #include <conio.h>
-#define MAX_USERNAME_LENGTH 20
-#define MAX_PASSWORD_LENGTH 20
+#define MAX_USERNAME_LENGTH 50
+#define MAX_PASSWORD_LENGTH 50
 void signUp();
 void changepass(char *filename,char* key);
 void signIn();
@@ -209,7 +209,7 @@ int search(char *filename, char *website,char *key) {
     system("cls");
     int count = 1;
     int flag = 0;
-    char line[20];
+    char line[50];
     char web[25] = "W:";
     strcat(web,website);
     FILE *fp;
@@ -223,7 +223,7 @@ int search(char *filename, char *website,char *key) {
         if (strcmp(line, web) == 0) { 
             flag += 1;
             printf("Found the website. (nvalue = %d)\n",count);
-            char username[20];
+            char username[50];
             decrypt(getfile(count+1,filename,username));
             printf("Username:");
             puts(username);
@@ -244,7 +244,7 @@ int search(char *filename, char *website,char *key) {
 }
 
 void delete(char *filename,char* key) {
-    char replace[20][20];
+    char replace[50][50];
     FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("Error opening file\n");
@@ -262,9 +262,9 @@ void delete(char *filename,char* key) {
         lnn++;
     }
     fclose(fp);
-    char del[20];
+    char del[50];
     printf("Enter website name:");
-    fgets(del,20,stdin);
+    fgets(del,50,stdin);
     del[strcspn(del,"\n")]  = '\0';
     int d = search(filename,del,key);
     if (d==0) {
@@ -302,7 +302,7 @@ return;
 }
 
 void changepass(char *filename, char*key) {
-    char replace[20][20];
+    char replace[50][50];
     FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("Error opening file\n");
@@ -321,14 +321,14 @@ void changepass(char *filename, char*key) {
     }
     fclose(fp);
     printf("Enter old password:");
-    char op[20];
+    char op[50];
     hpass(op);
-    char pss[20];
+    char pss[50];
     strcpy(pss,replace[1]);
     decrypt(pss);
     op[strcspn(op,"\n")]  = '\0';
     if (strcmp(op, pss)==0) {
-        char np[20];
+        char np[50];
     printf("\nEnter new password:");
     hpass(np);
     np[strcspn(np,"\n")]  = '\0';
@@ -372,7 +372,7 @@ return;
 }
 
 void changespecky(char *filename, char* key) {
-    char replace[20][20];
+    char replace[50][50];
     FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("Error opening file\n");
@@ -391,13 +391,13 @@ void changespecky(char *filename, char* key) {
     }
     fclose(fp);
     printf("Enter old special key:");
-    char okey[20];
-    fgets(okey,20,stdin);
+    char okey[50];
+    fgets(okey,50,stdin);
     okey[strcspn(okey,"\n")]  = '\0';
     if (strcmp(okey, key)==0) {
-        char newkey[20];
+        char newkey[50];
     printf("Enter new special key for retreiving passwords:");
-    fgets(newkey,20,stdin);
+    fgets(newkey,50,stdin);
     newkey[strcspn(newkey,"\n")]  = '\0';
     if(strcmp(newkey,"")==0) {
         runnercode3(filename,key);
@@ -515,7 +515,7 @@ void getPass(char *password) {
 struct User {
     char username[MAX_USERNAME_LENGTH];
     char password[MAX_PASSWORD_LENGTH];
-    char spckey[20];
+    char spckey[50];
 };
 struct User masterUser;
 void addPassword(char *filename, char*key) {
@@ -631,7 +631,7 @@ void retrievePassword(char *filename,char*key) {
         printf("Enter the indicated nvalue:");
         int m;
         scanf("%d",&m);
-        char pass[20];
+        char pass[50];
         getfile(m+2,filename,pass);
         decrypt(pass);
         printf("Password: ");
@@ -656,7 +656,7 @@ void signUp() {
     printf("Enter master username: ");
     fgets(newUser.username, sizeof(newUser.username), stdin);
     newUser.username[strcspn(newUser.username, "\n")] = '\0'; // remove trailing newline
-    char lame[20];
+    char lame[50];
     strcpy(lame,newUser.username);
     if(strcmp(lame,"")==0) {
         runnercode();
@@ -759,7 +759,7 @@ void signIn() {
 }
 
 int main() {
-    printf("\n\n\n\n\n\t\t\t\t\t\t*** Welcome to Pass Hub ***\n");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t*** Welcome to Pass Hub ***\n");
     printf("\n\n\n\n");
     printf("\n\t\t\t\t\t\t     **");
     Sleep(400);
