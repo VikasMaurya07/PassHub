@@ -56,37 +56,40 @@ void hpass(char* password) {  //  function reads characters from the user withou
     password[i] = '\0';
 }
 
-void tpass() {
+// to pass time, as sleep didn't function correctly
+void tpass() { 
     for(int i = 0; i<1999999999; i++) {
         printf("");
     }
 }
 
-void byn(char *str, int n) {
+// to short a string by n characters
+void byn(char *str, int n) { 
     int len = strlen(str);
     if (len > 0) {
         str[len - n] = '\0';
     }
 }
 
-char *getfile(int ln, char *filename, char *result) {
-    char line[100];
+// to get a line from the text file
+char *getfile(int ln, char *filename, char *result) { 
+    char line[100]; 
     int count = 1;
     FILE *fp;
     fp = fopen(filename, "r");
     if (fp == NULL) {
-        printf("Error opening file\n");
+        printf("Error opening file\n"); 
         return NULL;
     }
     while (fgets(line, sizeof(line), fp)) {
-        if (count == ln) {
-            strcpy(result, line);
+        if (count == ln) { 
+            strcpy(result, line); // saving the string in the character array line[]
             break;
         }
         count++;
     }
     fclose(fp);
-    byn(result,1);
+    byn(result,1); // shorting the obtained stringlength by 1
     return result;
 }
 
@@ -208,44 +211,47 @@ FILE *pri = fopen("lockey.txt", "r");  // encryption keys are stored in lockey.t
   }
 }
 
+// function to find strength of the entered password
 int strength(char p[])
 {
    int a=0,b=0,c=0,d=0;
    for(int i=0;i<strlen(p);i++)
    {
-    if(*(p+i)>='A' && *(p+i)<='Z')
+    if(*(p+i)>='A' && *(p+i)<='Z') // one point awarded if uppercase letters are present
     a=1;
-    else if(*(p+i)>='a' && *(p+i)<='z')
+    else if(*(p+i)>='a' && *(p+i)<='z') // one point awarded if lowercase letters are present
     b=1;
-    else if(*(p+i)>='0' && *(p+i)<='9')
+    else if(*(p+i)>='0' && *(p+i)<='9') // one point awarded numbers are present
     c=1;
     else
     d=1;
    }
       
-   return a+b+c+d+1;
+   return a+b+c+d+1; 
 }
 
+// to search for a website in user's text file
 int search(char *filename, char *website,char *key) {
-    system("cls");
-    int count = 1;
+    system("cls"); // command to clear the whole screen
+    int count = 1; 
     int flag = 0;
     char line[50];
-    char web[25] = "W:";
-    strcat(web,website);
+    char web[5] = "W:"; 
+    strcat(web,website); // to search for a website string W: website
     FILE *fp;
     fp = fopen(filename, "r");
     if (fp == NULL) {
-        printf("Error opening file\n");
+        printf("Error opening file\n"); // if user file not found
         return 0;
     }
-    while (fgets(line, sizeof(line), fp)) {
-        byn(line,1);
-        if (strcmp(line, web) == 0) { 
+    while (fgets(line, sizeof(line), fp)) { 
+        byn(line,1); // removing the null character for proper comparison
+        if (strcmp(line, web) == 0) {  // if website is found
             flag += 1;
             printf("Found the website. (nvalue = %d)\n",count);
-            char username[50];
-            decrypt(getfile(count+1,filename,username));
+            char username[50]; 
+            // getting and decrypting the username
+            decrypt(getfile(count+1,filename,username)); 
             printf("Username:");
             puts(username);
             printf("\n");
@@ -803,10 +809,10 @@ void signIn() {
 }
 
 int main() {
-    printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t*** Welcome to Pass Hub ***\n");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t*** Welcome to Pass Hub ***\n"); // ornamental
     printf("\n\n\n\n");
-    printf("\n\t\t\t\t\t\t     **");
-    Sleep(400);
+    printf("\n\t\t\t\t\t\t     **"); // ornamental
+    Sleep(400); // command to stop execution
     printf(")(");
     Sleep(400);
     printf("()");
