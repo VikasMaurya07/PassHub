@@ -118,9 +118,11 @@ void runnercode() {
         }
 } 
 
+// to encrypt the text 
 void encrypt(char password[]) {
-     int yum;
-FILE *loki = fopen("loki.txt", "r");
+    // to get encryptionn data from text files
+     int yum; 
+FILE *loki = fopen("loki.txt", "r");  // key is stored in loki.txt
     if (loki == NULL) {
         printf("File not found.\n");
         exit(1);
@@ -128,11 +130,11 @@ FILE *loki = fopen("loki.txt", "r");
     else {
       int num;
         while (fscanf(loki, "%d", &num)==1) {
-            yum = num;
+            yum = num; // key value assigned to yum
         }
     } 
     int key[yum + 1],lock[yum];
-FILE *pri = fopen("lockey.txt", "r");
+FILE *pri = fopen("lockey.txt", "r"); // encryption keys are stored in lockey.txt
     if (pri == NULL) {
         printf("File not found.\n");
         exit(1);
@@ -140,7 +142,7 @@ FILE *pri = fopen("lockey.txt", "r");
     else {
         int num, i=0;
         while (fscanf(pri, "%d", &num)==1) {
-            key[i++]= num;
+            key[i++]= num;  // key copied from lockey.txt and stored in key[]
         }
     }
     int i = 0,j = key[0];
@@ -148,7 +150,7 @@ FILE *pri = fopen("lockey.txt", "r");
       lock[i++] = j%10;
       j/=10;
     }
-
+// to encrypt a text input
   int n = strlen(password);
   for(int i = 0; i<n; i++) {
     int p = 0;
@@ -161,9 +163,11 @@ FILE *pri = fopen("lockey.txt", "r");
   }
 }
 
+// to decrypt the text
 void decrypt(char encrypted[]) {
+    // to get encryptionn data from text files
      int yum;
-FILE *loki = fopen("loki.txt", "r");
+FILE *loki = fopen("loki.txt", "r");   // key is stored in loki.txt
     if (loki == NULL) {
         printf("File not found.\n");
         exit(1);
@@ -171,11 +175,11 @@ FILE *loki = fopen("loki.txt", "r");
     else {
       int num;
         while (fscanf(loki, "%d", &num)==1) {
-            yum = num;
+            yum = num;  // key value assigned to yum
         }
     } 
     int key[yum + 1],lock[yum];
-FILE *pri = fopen("lockey.txt", "r");
+FILE *pri = fopen("lockey.txt", "r");  // encryption keys are stored in lockey.txt
     if (pri == NULL) {
         printf("File not found.\n");
         exit(1);
@@ -183,7 +187,7 @@ FILE *pri = fopen("lockey.txt", "r");
     else {
         int num, i=0;
         while (fscanf(pri, "%d", &num)==1) {
-            key[i++]= num;
+            key[i++]= num;  // key copied from lockey.txt and stored in key[]
         }
     }
     int i = 0,j = key[0];
@@ -255,7 +259,7 @@ int search(char *filename, char *website,char *key) {
         runnercode3(filename,key);
     }
     else{
-        return 1;
+        return count;
     }
 }
 
@@ -651,19 +655,25 @@ void retrievePassword(char *filename,char*key) {
         runnercode2(filename,key);
     }
     int d = search(filename,website,key);
-    if (d == 1){
-        printf("Enter the indicated nvalue:");
+    if (d != 0){
+        printf("Enter the indicated nvalue (else enter a value >= 200):");
         int m;
         scanf("%d",&m);
-        char pass[50];
-        getfile(m+2,filename,pass);
-        decrypt(pass);
-        printf("Password: ");
-        puts(pass);
-        int x;
-        printf("\nPress 1 to leave this page\n");
-        scanf("%d",&x);
-        if (x==1) {
+        getchar();
+        if (m<=d) {
+            char pass[50];
+            getfile(m+2,filename,pass);
+            decrypt(pass);
+            printf("Password: ");
+            puts(pass);
+            int x;
+            printf("\nPress 1 to leave this page\n");
+            scanf("%d",&x);
+            if (x==1) {
+                runnercode2(filename,key);
+            }
+        }
+        else {
             runnercode2(filename,key);
         }
     }
@@ -722,7 +732,7 @@ void signUp() {
             fprintf(file, "%s\n", newUser.password);
             fprintf(file, "%s\n", newUser.spckey);
             fclose(file);
-            printf("Sign up successful!\n", filename);
+            printf("Sign up successful!\n");
             runnercode();
         }
         else{
