@@ -1,9 +1,5 @@
 # PassHub
 A Password manger written in c. <br/>
-Made by -<br/> { GUDALA GEETA RAMCHARAN (22CS01039),<br/>
-            BORAGALA LIKHIT YADAV (22EE01013),<br/>
-            VIKAS KUMAR MAURYA (22EE01049),<br/>
-            GHANSHYAM SOMNATH GOHIL (22EE01015) } ;<br/>
             
 <br/><br/>Roadmap of our project<br/>
 
@@ -40,10 +36,11 @@ This is our first page<br/>
 
 ### Prerequisite
 
+->Windows pc
 ->IDE<br/>
 ->gcc compiler<br/>
 ->.exe file runner<br/>
-(only for windows)<br/>
+
 Libraries required-<br/>
 stdio.h,
  stdlib.h,
@@ -69,6 +66,14 @@ stdio.h,
 
 ## Acknowledgement
 
+This software was made under the capstone project which was assigned to first year btech students at IIT Bhubaneswar, in 2023 under Dr.Devashree Tripathy<br/><br/>
+
+## Creators
+
+<br/> { GUDALA GEETA RAMCHARAN (22CS01039),<br/>
+        BORAGALA LIKHIT YADAV (22EE01013),<br/>
+        VIKAS KUMAR MAURYA (22EE01049),<br/>
+        GHANSHYAM SOMNATH GOHIL (22EE01015) } ;<br/>
 
 
 
