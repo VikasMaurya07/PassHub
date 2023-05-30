@@ -1,7 +1,7 @@
 # PassHub
 A Password manger written in c. <br/>
             
-<br/><br/>Roadmap of our project<br/>
+<br/>Roadmap of our project<br/>
 
 ![Image](https://github.com/VikasMaurya07/PassHub/blob/main/Project%20Map.jpg "Project Map")<br/><br/>
 
