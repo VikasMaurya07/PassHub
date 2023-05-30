@@ -236,7 +236,7 @@ int search(char *filename, char *website,char *key) {
     int count = 1; 
     int flag = 0;
     char line[50];
-    char web[5] = "W:"; 
+    char web[25] = "W:"; 
     strcat(web,website); // to search for a website string W: website
     FILE *fp;
     fp = fopen(filename, "r");
@@ -428,7 +428,7 @@ void changespecky(char *filename, char* key) {
     fclose(fp); 
     printf("Enter old special key:");
     char okey[50];
-    fgets(okey,50,stdin); // to get od soecial key
+    fgets(okey,50,stdin); // to get old soecial key
     okey[strcspn(okey,"\n")]  = '\0';
     if (strcmp(okey, key)==0) {  // if old special key matches the input
         char newkey[50];
