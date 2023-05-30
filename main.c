@@ -32,16 +32,16 @@ void delete(char *filename,char* key);
 void changepass(char *filename, char*key);
 void getPass(char *password);
 
-void hpass(char* password) {
+void hpass(char* password) {  //  function reads characters from the user without displaying them, allowing the user to input a password securely
     char c; 
     int i = 0;
     while ((c = getch ()) != '\n' && c != '\r') 
     {
-        if (c == '\b') 
+        if (c == '\b') //if backspace
         {
             if (i > 0) 
             {
-                password[i-1] = '\0';
+                password[i-1] = '\0';// makes previous character null so it can be erased
                 printf ("\b \b"); 
                 i--;
             }
@@ -675,17 +675,17 @@ void retrievePassword(char *filename,char*key) {
 }
 void signUp() {
     struct User newUser;
-    system("cls");
+    system("cls"); // clears the terminal
     printf("\n=== Sign Up ===\n");
     printf("Enter master username: ");
     fgets(newUser.username, sizeof(newUser.username), stdin);
     newUser.username[strcspn(newUser.username, "\n")] = '\0'; // remove trailing newline By replacing the first newline character encountered with a null character
     char lame[50];
-    strcpy(lame,newUser.username);
+    strcpy(lame,newUser.username);  //if the string  newUser.username is empty then it will again call runnercode()
     if(strcmp(lame,"")==0) {
         runnercode();
     }
-    char *file = strcat(lame,".txt");
+    char *file = strcat(lame,".txt"); // the file pointer will point to the modified lame string.
     if (access(file, F_OK) != -1) {
         printf("Username Exist. Choose another\n");
         tpass();
@@ -703,13 +703,13 @@ void signUp() {
         getchar();
         if (n==1) {
             // adding special key
-            system("cls");
+            system("cls"); 
             printf("Enter your special key for retreiving passwords: ");
             fgets(newUser.spckey, sizeof(newUser.spckey), stdin);
             newUser.spckey[strcspn(newUser.spckey, "\n")] = '\0'; // remove trailing newline
             // Create a new file for the user
             char filename[MAX_USERNAME_LENGTH + 4]; // 4 is for ".txt" and null terminator
-            snprintf(filename, sizeof(filename), "%s.txt", newUser.username);
+            snprintf(filename, sizeof(filename), "%s.txt", newUser.username); //This generates a filename with the username and the .txt extension.
             FILE* file = fopen(filename, "w");
             if (file == NULL) {
                 printf("Error creating file!\n");
@@ -722,7 +722,7 @@ void signUp() {
             fprintf(file, "%s\n", newUser.password);
             fprintf(file, "%s\n", newUser.spckey);
             fclose(file);
-            printf("Sign up successful!\n", filename);
+            printf("Sign up successful!\n");
             runnercode();
         }
         else{
@@ -757,11 +757,11 @@ void signIn() {
     }
     fclose(file);
     struct User masterUser;
-    
+   // Retrieve the username, password, and special key from the file and store them in masterUser struct
     getfile(1,filename,masterUser.username);
     getfile(2,filename,masterUser.password);
     getfile(3,filename,masterUser.spckey);
-
+     //it  decrypts  the stored username, password, and special key.
         decrypt(masterUser.username);
         decrypt(masterUser.password);
         decrypt(masterUser.spckey);
