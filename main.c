@@ -657,7 +657,7 @@ void signUp() {
     printf("\n=== Sign Up ===\n");
     printf("Enter master username: ");
     fgets(newUser.username, sizeof(newUser.username), stdin);
-    newUser.username[strcspn(newUser.username, "\n")] = '\0'; // remove trailing newline
+    newUser.username[strcspn(newUser.username, "\n")] = '\0'; // remove trailing newline By replacing the first newline character encountered with a null character
     char lame[50];
     strcpy(lame,newUser.username);
     if(strcmp(lame,"")==0) {
