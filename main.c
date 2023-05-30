@@ -545,7 +545,7 @@ void addPassword(char *filename, char*key) {
     printf("=== Add Password ===\n");
 
     // Get website name
-    printf("Enter website name (use only lowercase): ");
+    printf("Enter website name: ");
     fgets(website, sizeof(website), stdin);
     for (int i = 0; website[i] != '\0'; i++) {
         website[i] = tolower(website[i]);
