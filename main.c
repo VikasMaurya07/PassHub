@@ -286,30 +286,30 @@ void delete(char *filename,char* key) {
     }
     fclose(fp); // closing the text file
     char del[50];
-    printf("Enter website name:"); // to get the website name to be deleted ted
+    printf("Enter website name:"); // to get the website name to be deleted 
     fgets(del,50,stdin);
     del[strcspn(del,"\n")]  = '\0';
     for (int i = 0; del[i] != '\0'; i++) {
-        del[i] = tolower(del[i]); 
+        del[i] = tolower(del[i]); // converting the input to lowecase
     }
-    int d = search(filename,del,key);
-    if (d==0) {
+    int d = search(filename,del,key); // calling the search function to search for the input in the text file
+    if (d==0) { // if input not found
         tpass();
         runnercode3(filename,key);
     }
-    else {
+    else {  // if found
     FILE*fpp = fopen(filename,"w");
     int l;
     printf("Enter nvalue (else enter some large value >200 to terminate):");
-    scanf("%d",&l);
-    getchar();
+    scanf("%d",&l);  // to get the indicated nvalue for deleting the specific portion
+    getchar(); 
     int k=0;
     while(1){
         if(k+1==l){
-            strcpy(replace[k],"numnumnumnum");
+            strcpy(replace[k],"numnumnumnum"); // replacing the website name in the text file with a meaningless string
         }
         fprintf(fpp,"%s\n",replace[k]);
-         if(k==lnn-1){
+         if(k==lnn-1){  // reprinting the whole text file after editing
             break;
         }
         k++;
@@ -327,6 +327,7 @@ void delete(char *filename,char* key) {
 return;
 }
 
+// a function to change the user password
 void changepass(char *filename, char*key) {
     char replace[50][50];
     FILE *fp = fopen(filename, "r");
@@ -337,7 +338,7 @@ void changepass(char *filename, char*key) {
     int read = 0;
     int lnn = 0;
     while (1)
-    {
+    {   // copying the user file to a two dimensional character arrray
         read = fscanf(fp,"%s", replace[lnn]);
         if (read == EOF)
         {
@@ -346,36 +347,38 @@ void changepass(char *filename, char*key) {
         lnn++;
     }
     fclose(fp);
-    printf("Enter old password:");
+    printf("Enter old password:"); // to get the old password
     char op[50];
     hpass(op);
     char pss[50];
     strcpy(pss,replace[1]);
     decrypt(pss);
     op[strcspn(op,"\n")]  = '\0';
-    if (strcmp(op, pss)==0) {
+    if (strcmp(op, pss)==0) { // if entered input matches old password
         char np[50];
     printf("\nEnter new password:");
-    hpass(np);
+    hpass(np); // function for secure input of password // getting  a new password
     np[strcspn(np,"\n")]  = '\0';
-    if(strcmp(np,"")==0) {
+    if(strcmp(np,"")==0) { // if no new password is entered
         runnercode3(filename,key);
     }
+    // strength check of password
     printf("\n\nStrength of your password is: %d/5\nDo you want to save it?\n1. Yes\n2. Try Again\n", strength(np));
         int n;
         printf("Enter:");
         scanf("%d",&n);
         getchar();
+    // if user wants to go with his entered password    
     if(n==1) {
-    encrypt(np);
+    encrypt(np); // encrypting new password
     FILE*fpp = fopen(filename,"w");
     int k=0;
     while(1){
         if(k+1==2){
-            strcpy(replace[k],np);
+            strcpy(replace[k],np); // saving the new password in the second line of the user text file 
         }
-        fprintf(fpp,"%s\n",replace[k]);
-         if(k==lnn-1){
+        fprintf(fpp,"%s\n",replace[k]); // reprinting the whole text file
+         if(k==lnn-1){ 
             break;
         }
         k++;
@@ -397,6 +400,7 @@ else {
 return;
 }
 
+// function to change the special key
 void changespecky(char *filename, char* key) {
     char replace[50][50];
     FILE *fp = fopen(filename, "r");
@@ -408,32 +412,32 @@ void changespecky(char *filename, char* key) {
     int lnn = 0;
     while (1)
     {
-        read = fscanf(fp,"%s", replace[lnn]);
+        read = fscanf(fp,"%s", replace[lnn]); // getting the text file in an array
         if (read == EOF)
         {
             break;
         }
         lnn++;
     }
-    fclose(fp);
+    fclose(fp); 
     printf("Enter old special key:");
     char okey[50];
-    fgets(okey,50,stdin);
+    fgets(okey,50,stdin); // to get od soecial key
     okey[strcspn(okey,"\n")]  = '\0';
-    if (strcmp(okey, key)==0) {
+    if (strcmp(okey, key)==0) {  // if old special key matches the input
         char newkey[50];
     printf("Enter new special key for retreiving passwords:");
     fgets(newkey,50,stdin);
     newkey[strcspn(newkey,"\n")]  = '\0';
-    if(strcmp(newkey,"")==0) {
+    if(strcmp(newkey,"")==0) { // if no input is found
         runnercode3(filename,key);
     }
-    encrypt(newkey);
+    encrypt(newkey); // to encrypt newkey 
     FILE*fpp = fopen(filename,"w");
     int k=0;
     while(1){
         if(k+1==3){
-            strcpy(replace[k],newkey);
+            strcpy(replace[k],newkey); // saving the newkey in the third line of the text file
         }
         fprintf(fpp,"%s\n",replace[k]);
          if(k==lnn-1){
