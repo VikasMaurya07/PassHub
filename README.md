@@ -5,6 +5,6 @@ Made by - { GUDALA GEETA RAMCHARAN (22CS01039),
             VIKAS KUMAR MAURYA (22EE01049),
             GHANSHYAM SOMNATH GOHIL (22EE01015) };
 
-![Image](Screenshot(133).png)
+![Image](image1.png)
 
 
