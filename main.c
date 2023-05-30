@@ -5,18 +5,33 @@
 #include <time.h>
 #include <windows.h>
 #include <conio.h>
+#include<ctype.h>
 
 #define MAX_USERNAME_LENGTH 50
 #define MAX_PASSWORD_LENGTH 50
 
 void signUp();
-void changepass(char *filename,char* key);
 void signIn();
 void addPassword();
 void retrievePassword();
+void runnercode();
+void tpass();
+void encrypt(char password[]);
+void decrypt(char encrypted[]);
+int strength(char p[]);
+void changepass(char *filename,char* key);
+void runnercode2(char *filename, char *key);
 void runnercode3(char *filename, char *key);
 void changespecky(char *filename, char*key);
 void delete(char *filename,char* key);
+void hpass(char* password);
+void byn(char *str, int n);
+char *getfile(int ln, char *filename, char *result);
+int search(char *filename, char *website,char *key);
+void delete(char *filename,char* key);
+void changepass(char *filename, char*key);
+void getPass(char *password);
+
 void hpass(char* password) {
     char c; 
     int i = 0;
@@ -40,7 +55,6 @@ void hpass(char* password) {
     }
     password[i] = '\0';
 }
-
 
 void tpass() {
     for(int i = 0; i<1999999999; i++) {
@@ -459,6 +473,7 @@ void runnercode2(char *filename, char *key){
                 runnercode2(filename,key);
         }
 }   
+
 void runnercode3(char *filename, char* key) { 
     system("cls");
     int option;
@@ -520,6 +535,7 @@ struct User {
     char spckey[50];
 };
 struct User masterUser;
+
 void addPassword(char *filename, char*key) {
     char website[MAX_USERNAME_LENGTH];
     char username[MAX_USERNAME_LENGTH];
@@ -529,8 +545,11 @@ void addPassword(char *filename, char*key) {
     printf("=== Add Password ===\n");
 
     // Get website name
-    printf("Enter website name (use only lowercase): ");
+    printf("Enter website name: ");
     fgets(website, sizeof(website), stdin);
+    for (int i = 0; website[i] != '\0'; i++) {
+        website[i] = tolower(website[i]);
+    }
     website[strcspn(website, "\n")] = '\0'; // remove trailing newline
 
     // Get username
@@ -623,6 +642,9 @@ void retrievePassword(char *filename,char*key) {
     else {
     printf("Enter website name: ");
     fgets(website, sizeof(website), stdin);
+    for (int i = 0; website[i] != '\0'; i++) {
+        website[i] = tolower(website[i]);
+    }
     website[strcspn(website, "\n")] = '\0'; // remove trailing newline
     }
     if(strcmp(website,"")==0) {
