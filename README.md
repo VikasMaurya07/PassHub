@@ -30,7 +30,7 @@ This is our first page<br/>
 
 ->We could use it to retrive passwords<br/>
 ->It helps you to set strong passwords<br/>
-->It provides more security and prevents hacking<br/>
+->It provides more security and prevents hacking<br/> <br/>
 
 ## Getting started
 
