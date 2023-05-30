@@ -1,9 +1,9 @@
 # PassHub
-A Password manger written in c <br/>
+A Password manger written in c. <br/>
 Made by -<br/> { GUDALA GEETA RAMCHARAN (22CS01039),<br/>
             BORAGALA LIKHIT YADAV (22EE01013),<br/>
             VIKAS KUMAR MAURYA (22EE01049),<br/>
-            GHANSHYAM SOMNATH GOHIL (22EE01015) };<br/>
+            GHANSHYAM SOMNATH GOHIL (22EE01015) } ;<br/>
             
 <br/><br/>Roadmap of our project<br/>
 
@@ -34,4 +34,45 @@ This is our first page<br/>
 
 ->We could use it to retrive passwords<br/>
 ->It helps you to set strong passwords<br/>
-->It prevents hacking<br/>
+->It provides more security and prevents hacking<br/>
+
+## Getting started
+
+### Prerequisite
+
+->IDE<br/>
+->gcc compiler<br/>
+->.exe file runner<br/>
+(only for windows)<br/>
+Libraries required-<br/>
+stdio.h,
+ stdlib.h,
+ string.h,
+ unistd.h,
+ time.h,
+ windows.h,
+ conio.h,
+ ctype.h
+
+### Running the code
+
+->Compile the code using gcc compiler<br/>
+->Run it using .exe file runner<br/>
+
+### Using Software
+
+->First you have to sign up for it you have to enter master user name and master password and special key<br/>
+->After signing up you go to sign in and enter correct master user name and master password to sign in succesfully<br/>
+->There you could add, retrive, delete, change passwords<br/>
+->First add passwords, enter website,user name, password your user name and password are encrypted and saved<br/>
+->After that you could retrive passwords by entering your special key and website<br/>
+
+## Acknowledgement
+
+
+
+
+
+
+
+
