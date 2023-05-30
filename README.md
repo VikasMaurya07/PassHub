@@ -11,7 +11,7 @@ Our first display<br/>
 
 This is our first page<br/>
 
-![Image](https://github.com/VikasMaurya07/PassHub/blob/main/Screenshot%20(134).png "Screenshot(134)")<br/>
+![Image](https://github.com/VikasMaurya07/PassHub/blob/main/Screenshot%20(134).png "Screenshot(134)")<br/> <br/>
 
 
 ## Features
