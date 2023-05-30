@@ -5,6 +5,7 @@
 #include <time.h>
 #include <windows.h>
 #include <conio.h>
+#include<ctype.h>
 
 #define MAX_USERNAME_LENGTH 50
 #define MAX_PASSWORD_LENGTH 50
@@ -546,6 +547,9 @@ void addPassword(char *filename, char*key) {
     // Get website name
     printf("Enter website name (use only lowercase): ");
     fgets(website, sizeof(website), stdin);
+    for (int i = 0; website[i] != '\0'; i++) {
+        website[i] = tolower(website[i]);
+    }
     website[strcspn(website, "\n")] = '\0'; // remove trailing newline
 
     // Get username
@@ -638,6 +642,9 @@ void retrievePassword(char *filename,char*key) {
     else {
     printf("Enter website name: ");
     fgets(website, sizeof(website), stdin);
+    for (int i = 0; website[i] != '\0'; i++) {
+        website[i] = tolower(website[i]);
+    }
     website[strcspn(website, "\n")] = '\0'; // remove trailing newline
     }
     if(strcmp(website,"")==0) {
