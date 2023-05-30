@@ -24,7 +24,7 @@ This is our first page<br/>
 ->Retriving password<br/>
 ->Deleting password<br/>
 ->Changing password<br/>
-->Changing special key<br/>
+->Changing special key<br/> <br/>
 
 ## Applications
 
@@ -62,7 +62,7 @@ stdio.h,
 ->After signing up you go to sign in and enter correct master user name and master password to sign in succesfully<br/>
 ->There you could add, retrive, delete, change passwords<br/>
 ->First add passwords, enter website,user name, password your user name and password are encrypted and saved<br/>
-->After that you could retrive passwords by entering your special key and website<br/> <br/>
+->After that you could retrive passwords by entering your special key and website<br/> <br/> <br/>
 
 ## Acknowledgement
 
