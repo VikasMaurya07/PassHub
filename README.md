@@ -49,12 +49,12 @@ stdio.h,
  time.h,
  windows.h,
  conio.h,
- ctype.h
+ ctype.h <br/>
 
 ### Running the code
 
 ->Compile the code using gcc compiler<br/>
-->Run it using .exe file runner<br/>
+->Run it using .exe file runner<br/><br/>
 
 ### Using Software
 
@@ -62,18 +62,18 @@ stdio.h,
 ->After signing up you go to sign in and enter correct master user name and master password to sign in succesfully<br/>
 ->There you could add, retrive, delete, change passwords<br/>
 ->First add passwords, enter website,user name, password your user name and password are encrypted and saved<br/>
-->After that you could retrive passwords by entering your special key and website<br/>
+->After that you could retrive passwords by entering your special key and website<br/> <br/>
 
 ## Acknowledgement
 
-This software was made under the capstone project which was assigned to first year btech students at IIT Bhubaneswar, in 2023 under Dr.Devashree Tripathy<br/><br/>
+This software was made under the capstone project, assigned to first year btech students at IIT Bhubaneswar (2023) under Dr.Devashree Tripathy<br/> <br/>
 
 ## Creators
 
 <br/> { GUDALA GEETA RAMCHARAN (22CS01039),<br/>
         BORAGALA LIKHIT YADAV (22EE01013),<br/>
         VIKAS KUMAR MAURYA (22EE01049),<br/>
-        GHANSHYAM SOMNATH GOHIL (22EE01015) } ;<br/>
+        GHANSHYAM SOMNATH GOHIL (22EE01015) } <br/>
 
 
 
