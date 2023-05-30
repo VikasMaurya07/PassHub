@@ -5,7 +5,7 @@
 #include <time.h>
 #include <windows.h>
 #include <conio.h>
-#include<ctype.h>
+#include <ctype.h>
 
 #define MAX_USERNAME_LENGTH 50
 #define MAX_PASSWORD_LENGTH 50
@@ -255,7 +255,7 @@ int search(char *filename, char *website,char *key) {
         runnercode3(filename,key);
     }
     else{
-        return 1;
+        return count;
     }
 }
 
@@ -651,19 +651,25 @@ void retrievePassword(char *filename,char*key) {
         runnercode2(filename,key);
     }
     int d = search(filename,website,key);
-    if (d == 1){
-        printf("Enter the indicated nvalue:");
+    if (d != 0){
+        printf("Enter the indicated nvalue (else enter a value >= 200):");
         int m;
         scanf("%d",&m);
-        char pass[50];
-        getfile(m+2,filename,pass);
-        decrypt(pass);
-        printf("Password: ");
-        puts(pass);
-        int x;
-        printf("\nPress 1 to leave this page\n");
-        scanf("%d",&x);
-        if (x==1) {
+        getchar();
+        if (m<=d) {
+            char pass[50];
+            getfile(m+2,filename,pass);
+            decrypt(pass);
+            printf("Password: ");
+            puts(pass);
+            int x;
+            printf("\nPress 1 to leave this page\n");
+            scanf("%d",&x);
+            if (x==1) {
+                runnercode2(filename,key);
+            }
+        }
+        else {
             runnercode2(filename,key);
         }
     }
