@@ -195,6 +195,7 @@ FILE *pri = fopen("lockey.txt", "r");  // encryption keys are stored in lockey.t
       lock[i++] = j%10;
       j/=10;
     }
+  // to decrypt encrypted text input 
   int n = strlen(encrypted);
   for(int i = 0; i<n; i++) {
     int p = 0;
@@ -263,6 +264,7 @@ int search(char *filename, char *website,char *key) {
     }
 }
 
+// to delete a website entry in user text file
 void delete(char *filename,char* key) {
     char replace[50][50];
     FILE *fp = fopen(filename, "r");
@@ -273,19 +275,23 @@ void delete(char *filename,char* key) {
     int read = 0;
     int lnn = 0;
     while (1)
-    {
-        read = fscanf(fp,"%s", replace[lnn]);
+    { 
+        // copying the user file to a two dimensional character arrray
+        read = fscanf(fp,"%s", replace[lnn]); 
         if (read == EOF)
         {
             break;
         }
         lnn++;
     }
-    fclose(fp);
+    fclose(fp); // closing the text file
     char del[50];
-    printf("Enter website name:");
+    printf("Enter website name:"); // to get the website name to be deleted ted
     fgets(del,50,stdin);
     del[strcspn(del,"\n")]  = '\0';
+    for (int i = 0; del[i] != '\0'; i++) {
+        del[i] = tolower(del[i]); 
+    }
     int d = search(filename,del,key);
     if (d==0) {
         tpass();
