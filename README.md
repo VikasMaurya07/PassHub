@@ -53,7 +53,7 @@ stdio.h,
 
 ### Running the code
 
-->Clone the repository. you only need the source code and the text files lockey.txt and loki.txt for running the software.
+->Clone the repository. you only need the source code and the text files lockey.txt and loki.txt for running the software. <br/>
 ->Compile the code using gcc compiler<br/>
 ->Run it using .exe file runner<br/><br/>
 
