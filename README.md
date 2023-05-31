@@ -53,6 +53,7 @@ stdio.h,
 
 ### Running the code
 
+->Clone the repository. Pull source code and the text files lockey.txt and loki.txt
 ->Compile the code using gcc compiler<br/>
 ->Run it using .exe file runner<br/><br/>
 
