@@ -68,7 +68,7 @@ stdio.h,
 ## Acknowledgement
 
 This software was made under the capstone project, assigned to first year btech students at IIT Bhubaneswar (2023) under Dr.Devashree Tripathy<br/> <br/>
-
+Check https://docs.google.com/document/d/1LmqfESrIj16A9_di3_42RP00FZ2Ch6LaYJqlN2KjIzA/edit
 ## Creators
 
 <br/> { GUDALA GEETA RAMCHARAN (22CS01039),<br/>
