@@ -35,7 +35,7 @@ void getPass(char *password);
 void hpass(char* password) {  //  function reads characters from the user without displaying them, allowing the user to input a password securely
     char c; 
     int i = 0;
-    while ((c = getch ()) != '\n' && c != '\r') 
+    while ((c = getch ()) != '\n' && c != '\r') // if enter key is pressed
     {
         if (c == '\b') //if backspace
         {
